@@ -13,7 +13,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('peminjaman:update-status')->everyMinute();
+        $schedule->command('peminjaman:kirimpesan')->dailyAt('18:34');
     }
+
+    protected $commands = [
+        Commands\PerbaruiStatusPeminjaman::class,
+        Commands\KirimPesanPengingat::class,
+    ];
 
     /**
      * Register the commands for the application.

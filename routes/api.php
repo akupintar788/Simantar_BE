@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\PeminjamanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +28,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'api', 'prefix' => 'users'], function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/ttd/{filename}', [UserController::class, 'showttd'])->where('filename', '.*');
     Route::post('/', [UserController::class, 'store']);
     Route::get('/{id}', [UserController::class, 'show']);
     Route::post('/update/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
+    Route::put('/setting/{id}', [UserController::class, 'updateSettings']);
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'jurusans'], function () {
@@ -51,10 +54,26 @@ Route::group(['middleware' => 'api', 'prefix' => 'ruangans'], function () {
 
 Route::group(['middleware' => 'api', 'prefix' => 'barangs'], function () {
     Route::get('/', [BarangController::class, 'index']);
+    Route::get('/lap', [BarangController::class, 'getLapBarang']);
+    Route::get('/iven', [BarangController::class, 'getInventaris']);
+    Route::get('/bhp', [BarangController::class, 'getBHP']);
+    Route::get('/kode', [BarangController::class, 'getBarangIdByKode']);
+    Route::get('/userid', [BarangController::class, 'getBarangUserIdByKode']);
     Route::post('/', [BarangController::class, 'store']);
     Route::get('/{id}', [BarangController::class, 'show']);
     Route::put('/update/{id}', [BarangController::class, 'update']);
     Route::delete('/{id}', [BarangController::class, 'destroy']);
+});
+
+Route::group(['middleware' => 'api', 'prefix' => 'peminjamans'], function () {
+    Route::get('/', [PeminjamanController::class, 'index']);
+    Route::get('/get', [PeminjamanController::class, 'getData']);
+    Route::get('/notif', [PeminjamanController::class, 'notif']);
+    Route::post('/', [PeminjamanController::class, 'store']);
+    Route::get('/{id}', [PeminjamanController::class, 'show']);
+    Route::put('/update/{id}', [PeminjamanController::class, 'update']);
+    Route::put('/updatestatus/{id}', [PeminjamanController::class, 'updateStatus']);
+    Route::delete('/{id}', [PeminjamanController::class, 'destroy']);
 });
 
 

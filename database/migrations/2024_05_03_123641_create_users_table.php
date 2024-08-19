@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('jurusan_id')->constrained('jurusans')->cascadeOnDelete();
             $table->string('username');
             $table->string('password');
             $table->string('nama_user');
-            $table->string('no_hp')->nullable();
+            $table->string('nip');
+            $table->string('no_hp');
             $table->string('ttd')->nullable(); // Untuk menyimpan tanda tangan user (file gambar)
             $table->enum('role', ['admin', 'sarpras', 'ketua_program', 'kepsek', 'guru', 'siswa']);
             $table->timestamp('created_at')->useCurrent(); // Untuk menyimpan tanggal akun dibuat
-            $table->timestamp('updated_at')->nullable(); // Untuk menyimpan tanggal akun di-edit
+            $table->timestamp('updated_at')->nullable();
         });
     }
 

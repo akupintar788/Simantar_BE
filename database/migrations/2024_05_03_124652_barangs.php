@@ -15,15 +15,17 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ruangan_id')->constrained('ruangans')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('jurusan_id')->constrained('jurusans')->cascadeOnDelete();
             $table->string('kode_barang');
             $table->string('nama_barang');
             $table->string('spesifikasi')->nullable();
             $table->date('pengadaan')->nullable();
             $table->enum('jenis_barang', ['barang sekolah', 'barang jurusan']);
+            $table->enum('kategori_barang', ['barang inventaris', 'barang habis pakai']);
             $table->integer('kuantitas')->nullable();
             $table->text('keterangan_barang')->nullable();
             $table->enum('keadaan_barang', ['baik', 'rusak ringan', 'rusak sedang', 'rusak berat'])->nullable();
-            $table->enum('status_ketersediaan', ['tersedia', 'terpakai'])->nullable();
+            $table->enum('status_ketersediaan', ['tersedia', 'terpakai'])->default('tersedia'); 
             $table->string('barcode')->nullable();
         });
     }

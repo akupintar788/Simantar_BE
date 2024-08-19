@@ -19,9 +19,11 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
+        'jurusan_id',
         'username',
         'password',
         'nama_user',
+        'nip',
         'no_hp',
         'ttd',
         'role',
@@ -49,6 +51,11 @@ class User extends Authenticatable implements JWTSubject
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function peminjamans()
+    {
+        return $this->hasMany(Peminjamans::class);
+    }
 
     public function getJWTIdentifier()
     {

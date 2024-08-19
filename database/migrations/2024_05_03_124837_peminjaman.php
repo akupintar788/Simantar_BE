@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nama_peminjam');
-            $table->date('tgl_peminjaman');
-            $table->date('tgl_pengembalian');
-            $table->text('keterangan')->nullable();
-            $table->enum('status_peminjaman', ['dipinjam', 'dikembalikan'])->default('dipinjam');
-            $table->enum('status_pengajuan', ['disetujui', 'tidak disetujui'])->default('disetujui');
+            $table->dateTime('tgl_peminjaman');
+            $table->dateTime('tgl_pengembalian');
+            $table->string('keperluan')->nullable();
             $table->timestamps();
         });
     }
